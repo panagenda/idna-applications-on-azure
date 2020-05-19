@@ -98,23 +98,6 @@ resource "azurerm_network_security_rule" "ifa_vnc" {
   network_security_group_name = azurerm_network_security_group.ifa[0].name
 }
 
-resource "azurerm_network_security_rule" "ifa_incoming" {
-  name                        = "${var.prefix}-sec-role-ifa-incoming"
-  count                       = var.subnet == "" ? 1 : 0
-  priority                    = 105
-  direction                   = "Inbound"
-  access                      = "Allow"
-  protocol                    = "TCP"
-  source_port_range           = "*"
-  destination_port_range      = "*"
-  source_address_prefixes     = ["127.0.0.1", azurerm_public_ip.ifa[0].ip_address]
-  destination_address_prefix  = "10.0.0.0/16"
-  resource_group_name         = azurerm_resource_group.ifa.name
-  network_security_group_name = azurerm_network_security_group.ifa[0].name
-
-  depends_on = [azurerm_public_ip.ifa]
-}
-
 # creates nic
 resource "azurerm_network_interface" "ifa-custom-public" {
   name                      = "${var.prefix}-nic"
