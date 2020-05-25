@@ -15,12 +15,6 @@ if [[ -z $1 || -z $2 || -z $3 ]]; then
     exit
 fi
 
-export test=$(echo -n $3 | wc -c)
-if test $test -lt "8"; then
-    echo "Please provide at least 8 chars as secret value."
-    exit
-fi
-
 export hostname=$1
 export timezone=$2
 export rootPsw=$3
