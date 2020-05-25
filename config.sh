@@ -32,6 +32,7 @@ configureAppliance() {
     ssh -o "StrictHostKeyChecking no" root@$ip "echo $hostname >> /etc/hostname && \
    hostnamectl set-hostname $hostname && \
    timedatectl set-timezone $timezone && \
+   /opt/panagenda/appdata/ifa/ifa start && \
    echo $rootPsw | passwd --stdin root"
 
     if test $? -ne 0; then
